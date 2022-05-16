@@ -28,5 +28,5 @@ app.delete('/products/:id', products.deleteProduct);
 // sales
 app.get('/sales', sales.getAllSales);
 app.get('/sales/:id', sales.salesById);
-
+app.post('/sales', sales.create);
 module.exports = app;
