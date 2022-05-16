@@ -4,15 +4,14 @@ const getAllProducts = async () => {
 const [products] = await connection.execute(
 'SELECT  * FROM products',
 );
+console.log(products);
 return products;
 };
 
 const productsById = async (id) => {
 const query = 'SELECT * FROM products WHERE id = ?';
 const [productId] = await connection.execute(query, [id]);
-const data = productId[0];
-if (productId.length === 0) return null;
-return data;
+return productId[0];
 };
 
 const productPost = async (name, quantity) => {
@@ -34,16 +33,21 @@ const productUpdate = async (name, quantity, id) => {
     return { id, name, quantity };
 };
 
+const productDelete = async (id) => {
+    const query = 'DELETE FROM products WHERE id = ?';
+   await connection.execute(query, [id]);
+};
+
 const verifyId = async (id) => {
     const query = 'SELECT id FROM StoreManager.products WHERE id = ?';
-    const product = await connection.execute(query, [id]);
-    return product;
+    const [product] = await connection.execute(query, [id]);
+    return product[0];
     };
 
 const verifyName = async (name) => {
-const query = 'SELECT name FROM StoreManager.products WHERE name = ?';
-const product = await connection.execute(query, [name]);
-return product;
+const query = 'SELECT name FROM products WHERE name = ?';
+const [product] = await connection.execute(query, [name]);
+return product[0];
 };
 
 module.exports = {
@@ -53,4 +57,5 @@ module.exports = {
     verifyName,
     productUpdate,
     verifyId,
+    productDelete,
 };

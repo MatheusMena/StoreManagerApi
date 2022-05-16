@@ -9,7 +9,7 @@ const getAllProducts = async (_req, res) => {
 const productsById = async (req, res) => {
   const { id } = req.params;
   const products = await productService.findById(id);
-  if (!products) {
+  if (products === null || products.length === 0) {
     return res.status(404).json({ message: 'Product not found' });
   }
   return res.status(200).json(products);
@@ -35,9 +35,20 @@ const update = async (req, res) => {
     return res.status(200).json({ id, name, quantity });
   }
 };
+
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  const deleteProductId = await productService.deleteId(id);
+if (deleteProductId === null) {
+  return res.status(404).json({ message: 'Product not found' });
+}
+return res.status(204).send();
+};
+
 module.exports = {
   getAllProducts,
   productsById,
   create,
   update,
+  deleteProduct,
 };

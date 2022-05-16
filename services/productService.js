@@ -16,21 +16,29 @@ const findById = async (id) => {
 
 const create = async (name, quantity) => {
   const verify = await storeModelProducts.verifyName(name);
-  console.log(verify[0]);
-  if (verify[0].length === 0) {
-  const createProduct = await storeModelProducts.productPost(name, quantity);
+  if (verify === undefined) {
+   const createProduct = await storeModelProducts.productPost(name, quantity);
   return createProduct;
   }
-  return false;
+  return null;
 };
 
 const update = async (name, quantity, id) => {
   const verify = await storeModelProducts.verifyId(id);
-  if (verify[0].length === 0) {
-  return false;
+  if (!verify) {
+  return null;
   }
   const updateProduct = await storeModelProducts.productUpdate(name, quantity, id);
   return updateProduct;
+};
+
+const deleteId = async (id) => {
+  const verify = await storeModelProducts.verifyId(id);
+  console.log(verify);
+  if (!verify) {
+  return null;
+  }
+  return storeModelProducts.productDelete(id);
 };
 
 module.exports = {
@@ -38,4 +46,5 @@ module.exports = {
   findById,
   create,
   update,
+  deleteId,
 };

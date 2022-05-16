@@ -20,10 +20,11 @@ app.get('/', (_request, response) => {
 // você deve usar o arquivo index.js para executar sua aplicação 
 
 // products
-app.get('/products', validateName, validateQuant, products.getAllProducts);
-app.get('/products/:id', validateName, validateQuant, products.productsById);
+app.get('/products', products.getAllProducts);
+app.get('/products/:id', products.productsById);
 app.post('/products', validateName, validateQuant, products.create);
 app.put('/products/:id', validateName, validateQuant, products.update);
+app.delete('/products/:id', products.deleteProduct);
 // sales
 app.get('/sales', sales.getAllSales);
 app.get('/sales/:id', sales.salesById);
