@@ -23,6 +23,7 @@ app.get('/', (_request, response) => {
 app.get('/products', validateName, validateQuant, products.getAllProducts);
 app.get('/products/:id', validateName, validateQuant, products.productsById);
 app.post('/products', validateName, validateQuant, products.create);
+app.put('/products/:id', validateName, validateQuant, products.update);
 // sales
 app.get('/sales', sales.getAllSales);
 app.get('/sales/:id', sales.salesById);

@@ -24,8 +24,18 @@ const create = async (name, quantity) => {
   return false;
 };
 
+const update = async (name, quantity, id) => {
+  const verify = await storeModelProducts.verifyId(id);
+  if (verify[0].length === 0) {
+  return false;
+  }
+  const updateProduct = await storeModelProducts.productUpdate(name, quantity, id);
+  return updateProduct;
+};
+
 module.exports = {
   getAll,
   findById,
   create,
+  update,
 };
