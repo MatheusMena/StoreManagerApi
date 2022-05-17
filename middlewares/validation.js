@@ -20,6 +20,17 @@ function validateQuant(req, res, next) {
     next();
 }
 
+function validateQuantSale(req, res, next) {
+  const quant = req.body;
+  if (quant.find(({ quantity }) => quantity <= 0)) {
+    return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+  } 
+  if (quant.find(({ quantity }) => !quantity)) {
+    return res.status(400).json({ message: '"quantity" is required' });
+  } 
+  next();
+}
+
 function validateId(req, res, next) {
   const id = req.body;
   if (id.find(({ productId }) => !productId)) {
@@ -33,4 +44,5 @@ module.exports = {
     validateName,
     validateQuant,
     validateId,
+    validateQuantSale,
 };
