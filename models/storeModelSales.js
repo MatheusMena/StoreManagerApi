@@ -30,18 +30,18 @@ const data = saleId.map((item) => ({
 return data;
 };
 const saleIdPost = async () => {
-const query = 'INSERT INTO sales(date) values(NOW())'; 
-const [sale] = await connection.execute(query);
-console.log('saleid', sale.insertId);
-return sale.insertId;
-};
+    const query = 'INSERT INTO sales(date) values(NOW())'; 
+    const [sale] = await connection.execute(query);
+    console.log('saleid', sale.insertId);
+    return sale.insertId;
+    };
 
-const salePostProducts = async (saleid, productId, quantity) => {
-    const query = 'INSERT INTO sales_products(sale_id,product_id,quantity) values(?,?,?)';
-     const product = await connection.execute(query, [saleid, productId, quantity]);
-     console.log('saleProduct', product);
-    return product;
-};
+    const salePostProducts = async (saleid, productId, quantity) => {
+        const query = 'INSERT INTO sales_products(sale_id,product_id,quantity) values(?,?,?)';
+         const product = await connection.execute(query, [saleid, productId, quantity]);
+         console.log('saleProduct', product);
+        return product;
+    };
 
 const productUpdate = async (saleId, productId, quantity) => {
     const query = `UPDATE sales_products
@@ -49,6 +49,14 @@ const productUpdate = async (saleId, productId, quantity) => {
     WHERE sale_id = ? AND product_id = ?;`; 
      await connection.execute(query, [quantity, saleId, productId]);
 };
+
+const salesDelete = async (id) => {
+    // DELETE sales FROM sales INNER JOIN sales_products ON id OR = ?
+    const query1 = 'DELETE FROM sales WHERE id = ?';
+    const query2 = 'DELETE FROM sales_products WHERE sale_id = ?';
+     await connection.execute(query1, [id]);
+     await connection.execute(query2, [id]);
+    };
 
 const verifyId = async (id) => {
     const query = 'SELECT id FROM StoreManager.sales WHERE id = ?';
@@ -62,4 +70,5 @@ module.exports = {
     saleIdPost,
     productUpdate,
     verifyId,
+    salesDelete,
 };

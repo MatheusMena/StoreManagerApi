@@ -29,9 +29,18 @@ const getAll = async () => {
       return { saleId: id, itemUpdated: item };
   };
 
+  const deleteSale = async (id) => {
+    const verify = await storeModelSales.verifyId(id);
+    if (!verify) {
+      return null;
+      }
+   await storeModelSales.salesDelete(id);
+  };
+
   module.exports = {
     getAll,
     findById,
     create,
     update,
+    deleteSale,
   };

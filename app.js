@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const { validateName, validateQuant,
-   validateProductIdAndQuant } = require('./middlewares/validation');
+    } = require('./middlewares/validation');
 const products = require('./controllers/productController');
 const sales = require('./controllers/salesController');
 
@@ -29,6 +29,7 @@ app.delete('/products/:id', products.deleteProduct);
 // sales
 app.get('/sales', sales.getAllSales);
 app.get('/sales/:id', sales.salesById);
-app.post('/sales', validateProductIdAndQuant, sales.create);
+app.post('/sales', sales.create);
 app.put('/sales/:id', sales.update);
+app.delete('/sales/:id', sales.deleteSale);
 module.exports = app;
