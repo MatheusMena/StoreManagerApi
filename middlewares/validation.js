@@ -21,8 +21,8 @@ function validateQuant(req, res, next) {
 }
 
 function validateId(req, res, next) {
-  const { productId } = req.body;
-  if (!productId) {
+  const id = req.body;
+  if (id.find(({ productId }) => !productId)) {
     return res.status(400).json({ message: '"productId" is required' });
   } 
 
