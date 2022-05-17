@@ -30,6 +30,6 @@ app.delete('/products/:id', products.deleteProduct);
 app.get('/sales', sales.getAllSales);
 app.get('/sales/:id', sales.salesById);
 app.post('/sales', validateId, validateQuantSale, sales.create);
-app.put('/sales/:id', sales.update);
+app.put('/sales/:id', validateId, validateQuantSale, sales.update);
 app.delete('/sales/:id', sales.deleteSale);
 module.exports = app;
