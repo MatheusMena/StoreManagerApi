@@ -21,16 +21,16 @@ describe('busca todos os produtos no bd', () => {
       expect(result).to.be.empty;
     })
     });
-    describe('Quando existem produtos cadastrados', async () => {
+    describe('Quando existem produtos cadastrados',  () => {
       const resultExecute = [
         { id: 1, name: 'Martelo de Thor', quantity: 10 },
         { id: 2, name: 'Traje de encolhimento', quantity: 20 },
         { id: 3, name: 'Escudo do Capitão América', quantity: 30 },
       ]
-      before(() => {
+      beforeEach(() => {
         sinon.stub(ProductsModel, 'getAllProducts').resolves([resultExecute])
       })
-      after(() => {
+      afterEach(() => {
         ProductsModel.getAllProducts.restore();
       })
 

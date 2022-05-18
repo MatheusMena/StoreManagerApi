@@ -49,10 +49,10 @@ const salesModel = require('../../../models/storeModelSales');
       expect(result).to.be.empty;
     })
     });
-    describe('Quando existem produtos cadastrados', async () => {
+    describe('Quando existem produtos cadastrados',  () => {
       const resultExecute = [
-        { id: 1,  date: NOW()},
-        { id: 2,  date: NOW()},
+        { id: 1,  date: '2022-05-18 20:24:50'},
+        { id: 2,  date: '2022-05-18 20:24:50'},
       ]
       beforeEach(() => {
         sinon.stub(connection, 'execute').resolves([resultExecute])
@@ -73,9 +73,9 @@ const salesModel = require('../../../models/storeModelSales');
         const [result] = await salesModel.getAllSales();
         expect(result).to.be.a('object')
       })
-      it('contem o atributo id,name e quantity', async () => {
+      it('contem o atributo "date", "productId", "quantity", "saleId"', async () => {
         const [result] = await salesModel.getAllSales();
-        expect(result).to.includes.all.keys('id','quantity');
+        expect(result).to.includes.all.keys(["date", "productId", "quantity", "saleId"]);
       })
     })
   })

@@ -21,15 +21,15 @@ describe('busca todos os produtos no bd', () => {
       expect(result).to.be.empty;
     })
     });
-    describe('Quando existem vendas cadastrados', async () => {
+    describe('Quando existem vendas cadastrados', () => {
       const resultExecute = [
         { id: 1,  date: '2022-05-18 20:24:50'},
         { id: 2,  date: '2022-05-18 20:24:50'},
       ]
-      before(() => {
+      beforeEach(() => {
         sinon.stub(salesModel, 'getAllSales').resolves([resultExecute])
       })
-      after(() => {
+      afterEach(() => {
         salesModel.getAllSales.restore();
       })
 
