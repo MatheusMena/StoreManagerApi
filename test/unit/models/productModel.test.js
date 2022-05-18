@@ -6,13 +6,13 @@ const ProductsModel = require('../../../models/storeModelProducts');
   describe('Insere um novo produto no BD', () => {
     const payloadProduct =  { "name": "produto", "quantity": 10 }
   
-    before(async () => {
+    beforeEach(async () => {
         const execute = [{ insertId: 1 }]; // retorno esperado nesse teste
 
         sinon.stub(connection, 'execute').resolves(execute);
       });
 
-    after(async () => {
+    afterEach(async () => {
         connection.execute.restore();
       });
       
@@ -36,10 +36,10 @@ const ProductsModel = require('../../../models/storeModelProducts');
   describe('busca todos os produtos no bd', () => {
     describe('Se não tiver nada cadastrado' , () => {
       const resultExecute = [[]]
-      before(() => {
+      beforeEach(() => {
         sinon.stub(connection, 'execute').resolves(resultExecute)
       })
-      after(() => {
+      afterEach(() => {
         connection.execute.restore();
       })
      it('retorna um array', async () => {
@@ -57,10 +57,10 @@ const ProductsModel = require('../../../models/storeModelProducts');
         { id: 2, name: 'Traje de encolhimento', quantity: 20 },
         { id: 3, name: 'Escudo do Capitão América', quantity: 30 },
       ]
-      before(() => {
+      beforeEach(() => {
         sinon.stub(connection, 'execute').resolves([resultExecute])
       })
-      after(() => {
+      afterEach(() => {
         connection.execute.restore();
       })
 

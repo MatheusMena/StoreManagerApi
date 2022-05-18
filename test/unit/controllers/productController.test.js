@@ -14,7 +14,7 @@ describe('chamada do controller getAll', () => {
         const response = {};
         const request = {};
 
-        before(() => {
+        beforeEach(() => {
             response.status = sinon.stub()
               .returns(response);
             response.json = sinon.stub()
@@ -24,14 +24,13 @@ describe('chamada do controller getAll', () => {
               .resolves([resultExecute]);
           })
       
-          after(() => {
+          afterEach(() => {
             ProductsService.getAll.restore();
           });
       
 
         it('quando a requisição é feita corretamente é retornado status http 201', async () => { 
          await  ProductsController.getAllProducts(request,response)
-         console.log(response)
          expect(response.status.calledWith(200)).to.be.equal(true);
          })
          it('é retornado o metodo JSON contendo um objeto', async () => { 
@@ -45,7 +44,7 @@ describe('Insere um novo produto no BD', () => {
     const response = {};
     const request = {};
 
-    before(() => {
+    beforeEach(() => {
         request.body = {
             "id": 1, "name": "produto", "quantity": 10
         };
@@ -58,7 +57,7 @@ describe('Insere um novo produto no BD', () => {
           .resolves(true);
       })
   
-      after(() => {
+      afterEach(() => {
         ProductsService.create.restore();
       });
     describe('quando a requisição é feita corretamente é retornado status http 201', () => {

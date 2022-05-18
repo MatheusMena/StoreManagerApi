@@ -6,10 +6,10 @@ const ProductsService = require('../../../services/productService');
 describe('busca todos os produtos no bd', () => {
     describe('Se não tiver nada cadastrado' , () => {
       const resultExecute = []
-      before(() => {
+      beforeEach(() => {
         sinon.stub(ProductsModel, 'getAllProducts').resolves(resultExecute)
       })
-      after(() => {
+      afterEach(() => {
         ProductsModel.getAllProducts.restore();
       })
      it('retorna um array', async () => {
@@ -56,13 +56,13 @@ describe('busca todos os produtos no bd', () => {
 describe('Insere um novo produto no BD', () => {
     const payloadProduct =  { "name": "produto", "quantity": 10 }
   
-    before(async () => {
+    beforeEach(async () => {
         const execute = [ { "id": 1, "name": "produto", "quantity": 10 }]; // retorno esperado nesse teste
 
         sinon.stub(ProductsModel, 'productPost').resolves(execute);
       });
 
-    after(async () => {
+    afterEach(async () => {
       ProductsModel.productPost.restore();
       });
       
